@@ -3,7 +3,19 @@ import Head from "next/head"
 import Container from "../components/Container"
 import Button from "../components/Button"
 
-const Home: NextPage = () => {
+
+export async function getServerSideProps() {
+  const res = await fetch(process.env.USER_URL as string)
+  const users = await res.json()
+  console.log(users)
+
+  return {
+    props: { users },
+  }
+}
+
+
+const Transfer: NextPage = () => {
   return (
     <>
       <Head>
@@ -28,4 +40,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Transfer
