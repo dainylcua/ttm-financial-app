@@ -6,7 +6,7 @@ interface User {
   firstName: String
   lastName?: String
   username: String,
-  phoneNumber: Number,
+  phoneNumber: String,
   cash: Number,
   history: [{
     senderId: mongoose.Types.ObjectId,
@@ -26,7 +26,7 @@ export const connect = async () => {
     firstName: { type: String, required: true },
     lastName: String,
     username: { type: String, required: true },
-    phoneNumber: { type: Number, required: true },
+    phoneNumber: { type: String, required: true },
     cash: Number,
     history: [{
       senderId: { type: mongoose.Types.ObjectId, required: true },
