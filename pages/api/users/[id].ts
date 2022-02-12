@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { connect } from "../../../utils/connection"
 import { ResponseFuncs } from "../../../utils/types"
 
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Capture request method: typed as key of ResponseFunc
   const method: keyof ResponseFuncs = req.method as keyof ResponseFuncs

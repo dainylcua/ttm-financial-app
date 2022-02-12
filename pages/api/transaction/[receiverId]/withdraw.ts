@@ -7,8 +7,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Capture request method: typed as key of ResponseFunc
   const method: keyof ResponseFuncs = req.method as keyof ResponseFuncs
 
-  // Catch error function
-
   const id: String = req.query.receiverId as string
 
   // Response possibilities
