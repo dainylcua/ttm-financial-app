@@ -25,8 +25,8 @@ export const connect = async () => {
   const UserSchema = new mongoose.Schema<User>({
     firstName: { type: String, required: true },
     lastName: String,
-    username: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
+    phoneNumber: { type: String, required: true, unique: true },
     cash: Number,
     history: [{
       senderId: { type: mongoose.Types.ObjectId, required: true },
