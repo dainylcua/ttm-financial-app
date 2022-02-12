@@ -22,7 +22,7 @@ const NumpadNumber: React.FC = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row items-center justify-center py-2 mt-16 mb-4">
+      <div className="flex flex-row items-center justify-center mt-12">
           <div
             className="flex flex-row items-center justify-center w-40 text-8xl"
           >
@@ -30,7 +30,10 @@ const NumpadNumber: React.FC = () => {
             {amount}
           </div>
       </div>
-      <div className="flex flex-col h-64 text-3xl border rounded-lg justify-evenly">
+      <div className={`${amount == 999 ? 'visible' : 'invisible'} my-2 text-red-500 opacity-70 animate-pulse ease-in-out`}>
+        Maximum transferable amount is $999.
+      </div>
+      <div className="flex flex-col h-64 text-3xl border rounded-lg justify-evenly gap-y-2">
         <div className="flex flex-row items-center justify-between flex-grow px-8 mb-2 text-xl text-center border-b">
           <button onClick={() => setAmount(10)}>$10</button>
           <button onClick={() => setAmount(100)}>$100</button>
@@ -51,7 +54,7 @@ const NumpadNumber: React.FC = () => {
           <button onClick={addDigit}>2</button>
           <button onClick={addDigit}>3</button>
         </div>
-        <div className="flex flex-row justify-between flex-grow px-12">
+        <div className="flex flex-row justify-between flex-grow px-12 mb-2">
           <button className="font-bold" onClick={deleteDigit}>←</button>
           <button onClick={addDigit}>0</button>
           <div className="invisible">1</div>

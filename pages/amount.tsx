@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, JSXElementConstructor } from "react
 import type { NextPage } from "next"
 import Head from "next/head"
 import Container from "../components/Container"
-import Button from "../components/Button"
+import NumpadButton from "../components/TransferButton"
 import SearchBar from "../components/SearchBar"
 import { debounce } from "lodash"
 import NumpadNumber from "../components/NumpadNumber"
@@ -47,6 +47,7 @@ interface Transaction {
 const Transfer: NextPage<PageProps> = ({ user }) => {
   const [searchState, setSearchState] = useState<boolean>(false)
   const [buttonState, setButtonState] = useState<boolean>(false)
+  const [transferState, setTransferState] = useState<boolean>(false)
   const [users, setUsers] = useState<Array<User>>([])
 
   
@@ -93,18 +94,20 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
 
         <div className={`flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
           <div className="flex flex-row self-center mt-10 gap-x-8">
-            <Button
+            <NumpadButton
               setButtonState={setButtonState}
+              setTransferState={setTransferState}
               paying={true}
-            >
+              >
               Pay
-            </Button>
-            <Button 
+            </NumpadButton>
+            <NumpadButton 
               setButtonState={setButtonState}
+              setTransferState={setTransferState}
               paying={false}
             >
               Request
-            </Button>
+            </NumpadButton>
           </div>
         </div>
         
