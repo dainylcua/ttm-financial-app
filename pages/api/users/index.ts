@@ -13,10 +13,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // GET request (gets all users; used for search)
     GET: async (req: NextApiRequest, res: NextApiResponse) => {
       const { User } = await connect()
+      const query: number | string = req.body
       try {
-        const userList = await User.find({number:req.body})
+        if(typeof(query) === "string") {
+          const userList: Array<object> = await User.find({ username: req.body })
+          res.status(201).json({ success: true, data: userList })
+        } else {
+          const userList: Array<object> = await User.find({ phoneNumber: req.body })
+          res.status(201).json({ success: true, data: userList })
+        }
       } catch (error) {
-        
+        res.status(400).json({ success: false })
       }
       // String or Number as input will depend on search params
     },

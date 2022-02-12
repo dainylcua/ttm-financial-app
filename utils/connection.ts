@@ -5,7 +5,7 @@ const { DATABASE_URL } = process.env
 interface User {
   firstName: String
   lastName?: String
-  username?: String,
+  username: String,
   phoneNumber: Number,
   cash: Number,
   history: [{
@@ -25,15 +25,15 @@ export const connect = async () => {
   const UserSchema = new mongoose.Schema<User>({
     firstName: { type: String, required: true },
     lastName: String,
-    username: String,
+    username: { type: String, required: true },
     phoneNumber: { type: Number, required: true },
     cash: Number,
     history: [{
       senderId: { type: mongoose.Types.ObjectId, required: true },
       receiverId: { type: mongoose.Types.ObjectId, required: true },
       cashflow: { type: Number, required: true }
-    }],
-  })
+    }, {timestamps: true}],
+  }, {timestamps: true})
 
   const User = mongoose.models.UserSchema || mongoose.model<User>("User", UserSchema)
 

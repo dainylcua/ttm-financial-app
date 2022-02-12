@@ -15,7 +15,7 @@ export interface Transaction {
 export interface User {
   _id?: Number,
   firstName: String,
-  lastName: String,
+  lastName?: String,
   username: String,
   phoneNumber: Number,
   cash: Number,
