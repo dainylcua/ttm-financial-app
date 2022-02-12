@@ -16,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const handleCase: ResponseFuncs = {
     // PUT request (withdraws money)
     PUT: async (req: NextApiRequest, res: NextApiResponse) => {
-      const { Transaction } = await connect()
+      const { User } = await connect()
       // res.json(await User.create(req.body).catch(catcher))
     }
   }

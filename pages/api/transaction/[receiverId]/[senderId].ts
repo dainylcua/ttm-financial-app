@@ -16,10 +16,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Response possibilities
   const handleCase: ResponseFuncs = {
     // PUT request (withdraws money from one account then deposits it into another)
-    PUT: async (req: NextApiRequest, res: NextApiResponse) => {
-      const { Transaction } = await connect()
-      res.json(await Transaction.create(req.body).catch(catcher))
-    }
+    // PUT: async (req: NextApiRequest, res: NextApiResponse) => {
+    //   const { Transaction } = await connect()
+    //   res.json(await Transaction.create(req.body).catch(catcher))
+    // }
   }
   const response = handleCase[method]
   if (response) response(req,res)

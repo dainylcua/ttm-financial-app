@@ -19,5 +19,5 @@ export interface User {
   username: String,
   phoneNumber: Number,
   cash: Number,
-  transaction: Array<Object>
+  transactionHistory: Array<Object>
 }

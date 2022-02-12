@@ -1,33 +1,43 @@
 import mongoose, { Model } from "mongoose"
 
-const { DATABSE_URL } = process.env
+const { DATABASE_URL } = process.env
+
+interface User {
+  firstName: String
+  lastName?: String
+  username?: String,
+  phoneNumber: Number,
+  cash: Number,
+  history: [{
+    senderId: mongoose.Types.ObjectId,
+    receiverId: mongoose.Types.ObjectId,
+    cashflow: Number
+  }]
+}
 
 export const connect = async () => {
   const connection = await mongoose
-    .connect(DATABSE_URL as string)
+    .connect(DATABASE_URL as string)
     .catch((err) => console.log(err))
 
   console.log("Mongoose Connection Established")
-
-  const TransactionSchema = new mongoose.Schema({
-    senderId: String,
-    receiverId: String,
-    cashflow: Number
-  })
   
-  const UserSchema = new mongoose.Schema({
-    firstName: String,
+  const UserSchema = new mongoose.Schema<User>({
+    firstName: { type: String, required: true },
     lastName: String,
     username: String,
-    phoneNumber: Number,
+    phoneNumber: { type: Number, required: true },
     cash: Number,
-    transaction: [TransactionSchema],
+    history: [{
+      senderId: { type: mongoose.Types.ObjectId, required: true },
+      receiverId: { type: mongoose.Types.ObjectId, required: true },
+      cashflow: { type: Number, required: true }
+    }],
   })
 
-  const Transaction = mongoose.models.TransactionSchema || mongoose.model("Transaction", TransactionSchema)
-  const User = mongoose.models.UserSchema || mongoose.model("User", UserSchema)
+  const User = mongoose.models.UserSchema || mongoose.model<User>("User", UserSchema)
 
-  return { connection, Transaction, User }
+  return { connection, User }
 }
 
   
