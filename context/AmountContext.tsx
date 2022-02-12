@@ -2,19 +2,16 @@ import { createContext, useContext, useState } from "react"
 
 interface AmountContextInterface {
   amount: number
-  increment: Function
-  decrement: Function
+  setAmount: Function
 }
 
-const AmountContext = createContext<AmountContextInterface>({amount: 0, increment: (() => {}), decrement: (() => {})})
+const AmountContext = createContext<AmountContextInterface>({amount: 0, setAmount: (() => {})})
 
 export const AmountProvider: React.FC = ({ children }) => {
   const [amount, setAmount] = useState(0)
-  const increment = () => setAmount((prevAmount) => prevAmount++)
-  const decrement = () => setAmount((prevAmount) => prevAmount--)
 
   return(
-    <AmountContext.Provider value={{amount, increment, decrement}}>{ children }</AmountContext.Provider>
+    <AmountContext.Provider value={{amount, setAmount}}>{ children }</AmountContext.Provider>
   )
 }
 

@@ -87,7 +87,7 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
         <SearchBar setSearchState={setSearchState} handleChange={handleChange}/>
         <BigNumber />
         <div className={`flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
-          <div className="flex flex-row self-center py-20 gap-x-8">
+          <div className="flex flex-row self-center pb-10 gap-x-8">
             <Button href="/transfer">
               Pay
             </Button>
