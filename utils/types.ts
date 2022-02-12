@@ -14,8 +14,10 @@ export interface Transaction {
 
 export interface User {
   _id?: Number,
-  name: String,
+  firstName: String,
+  lastName: String,
+  username: String,
+  phoneNumber: Number,
   cash: Number,
-  card: Number,
   transaction: Array<Object>
 }

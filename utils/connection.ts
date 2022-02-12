@@ -16,9 +16,11 @@ export const connect = async () => {
   })
   
   const UserSchema = new mongoose.Schema({
-    name: String,
+    firstName: String,
+    lastName: String,
+    username: String,
+    phoneNumber: Number,
     cash: Number,
-    card: Number,
     transaction: [TransactionSchema],
   })
 
