@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import type { NextPage } from "next"
 import Head from "next/head"
 import Container from "../components/Container"
 import Button from "../components/Button"
 import SearchBar from "../components/SearchBar"
+import { debounce } from "lodash"
 
 
 export async function getServerSideProps() {
@@ -19,29 +20,41 @@ export async function getServerSideProps() {
 
 interface PageProps {
   user: {
-    firstName: String
-    lastName?: String
-    username: String
-    phoneNumber: String
+    firstName: string
+    lastName?: string
+    username: string
+    phoneNumber: string
     cash: number
     history: Array<Transaction>
   }
 }
 
 interface Transaction {
-  senderId?: String
-  senderUsername?: String,
-  senderFirstName?: String,
-  senderLastName?: String,
-  receiverId?: String,
-  receiverUsername?: String,
-  receiverFirstName?: String,
-  receiverLastName?: String,
+  senderId?: string
+  senderUsername?: string,
+  senderFirstName?: string,
+  senderLastName?: string,
+  receiverId?: string,
+  receiverUsername?: string,
+  receiverFirstName?: string,
+  receiverLastName?: string,
   cashflow?: Number
 }
 
 const Transfer: NextPage<PageProps> = ({ user }) => {
   const [searchState, setSearchState] = useState<boolean>(false)
+  const [query, setQuery] = useState<string>('')
+
+  const searchUsers: Function = (query: String) => {
+
+  }
+
+  const debouncedSearch = useRef(
+    debounce(async (query: string) => {
+      setQuery(await searchUsers(query))
+    }, 300)
+  ).current
+
   return (
     <>
       <Head>
@@ -50,7 +63,7 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <SearchBar setSearchState={setSearchState} />
+        <SearchBar setSearchState={setSearchState} setQuery={setQuery} query={query} />
         
         <div className={`flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
           <div className="flex flex-row self-center py-20 gap-x-8">

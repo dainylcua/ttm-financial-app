@@ -6,11 +6,11 @@ export interface ResponseFuncs {
 }
 
 export interface User {
-  _id?: Number,
-  firstName: String,
-  lastName?: String,
-  username: String,
-  phoneNumber: String,
-  cash: Number,
+  _id?: number,
+  firstName: string,
+  lastName?: string,
+  username: string,
+  phoneNumber: string,
+  cash: number,
   history: Array<Object>
 }
