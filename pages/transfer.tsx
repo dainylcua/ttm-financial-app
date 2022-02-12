@@ -2,20 +2,44 @@ import type { NextPage } from "next"
 import Head from "next/head"
 import Container from "../components/Container"
 import Button from "../components/Button"
+import SearchBar from "../components/SearchBar"
 
 
 export async function getServerSideProps() {
   const res = await fetch(process.env.USER_URL as string)
   const users = await res.json()
-  console.log(users)
+  const user = users.data[0]
+  console.log(user)
 
   return {
-    props: { users },
+    props: { user },
   }
 }
 
+interface PageProps {
+  user: {
+    firstName: String
+    lastName?: String
+    username: String
+    phoneNumber: String
+    cash: number
+    history: Array<Transaction>
+  }
+}
 
-const Transfer: NextPage = () => {
+interface Transaction {
+  senderId?: String
+  senderUsername?: String,
+  senderFirstName?: String,
+  senderLastName?: String,
+  receiverId?: String,
+  receiverUsername?: String,
+  receiverFirstName?: String,
+  receiverLastName?: String,
+  cashflow?: Number
+}
+
+const Transfer: NextPage<PageProps> = ({ user }) => {
   return (
     <>
       <Head>
@@ -24,16 +48,37 @@ const Transfer: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <div className="text-3xl font-bold">
-          Welcome, TTM!
-        </div>
-        <div className="flex flex-row self-center py-80 gap-x-8">
+        <SearchBar />
+        <div className="flex flex-row self-center py-20 gap-x-8">
           <Button href="/transfer">
-            Log In
+            Pay
           </Button>
           <Button href="/signup">
-            Sign Up
+            Request
           </Button>
+        </div>
+        <div className="flex flex-col text-center">
+          <div className="text-2xl">Recent Transactions</div>
+          <div>
+            {
+              user ?
+                user.history.length ?
+                  user.history.map((t: Transaction, idx) => (
+                    <div key={idx} className="flex w-full">
+                      <div>Image</div>
+                      <div className="flex flex-col">
+                        <div>{t.senderFirstName}</div>
+                        <div>{t.senderLastName}</div>
+                      </div>
+                      <div>{t.cashflow}</div>
+                    </div>
+                  ))
+                :
+                  'No user history found.'
+              :
+                'Please log in to view.'
+            }
+          </div>
         </div>
       </Container>
     </>

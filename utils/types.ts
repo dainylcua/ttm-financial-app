@@ -5,13 +5,6 @@ export interface ResponseFuncs {
   DELETE?: Function
 }
 
-export interface Transaction {
-  _id?: Number
-  senderId: Number,
-  receiverId: Number,
-  cashflow: Number
-}
-
 export interface User {
   _id?: Number,
   firstName: String,
@@ -19,5 +12,5 @@ export interface User {
   username: String,
   phoneNumber: String,
   cash: Number,
-  transactionHistory: Array<Object>
+  history: Array<Object>
 }

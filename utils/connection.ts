@@ -10,7 +10,13 @@ interface User {
   cash: Number,
   history: [{
     senderId: mongoose.Types.ObjectId,
+    senderUsername: String,
+    senderFirstName: String,
+    senderLastName: String,
     receiverId: mongoose.Types.ObjectId,
+    receiverUsername: String,
+    receiverFirstName: String,
+    receiverLastName: String,
     cashflow: Number
   }]
 }
@@ -22,7 +28,7 @@ export const connect = async () => {
 
   console.log("Mongoose Connection Established")
   
-  const UserSchema = new mongoose.Schema<User>({
+  const UserSchema: mongoose.Schema = new mongoose.Schema<User>({
     firstName: { type: String, required: true },
     lastName: String,
     username: { type: String, required: true, unique: true },
@@ -30,12 +36,18 @@ export const connect = async () => {
     cash: Number,
     history: [{
       senderId: { type: mongoose.Types.ObjectId, required: true },
+      senderUsername: { type: String, required: true },
+      senderFirstName: { type: String, required: true },
+      senderLastName: String,
       receiverId: { type: mongoose.Types.ObjectId, required: true },
+      receiverUsername: { type: String, required: true },
+      receiverFirstName: { type: String, required: true },
+      receiverLastName: String,
       cashflow: { type: Number, required: true }
     }, {timestamps: true}],
   }, {timestamps: true})
 
-  const User = mongoose.models.UserSchema || mongoose.model<User>("User", UserSchema)
+  const User = mongoose.models?.UserSchema || mongoose.model<User>("User", UserSchema)
 
   return { connection, User }
 }
