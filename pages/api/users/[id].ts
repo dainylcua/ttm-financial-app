@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     GET: async (req: NextApiRequest, res: NextApiResponse) => {
       const { User } = await connect()
       try {
-        const foundUser = await User.findById(id)
+        const foundUser: object | null = await User.findById(id)
         if(foundUser) {
           res.status(201).json({ success: true, data: foundUser })
         } else {
@@ -29,7 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     DELETE: async (req: NextApiRequest, res: NextApiResponse) => {
       const { User } = await connect()
       try {
-        const deletedUser = await User.findByIdAndRemove(id)
+        const deletedUser: object | null = await User.findByIdAndRemove(id)
         if(deletedUser) {
           res.status(201).json({ success: true, data: deletedUser })
         } else {

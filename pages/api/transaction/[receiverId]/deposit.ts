@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { connect } from "../../../utils/connection"
-import { ResponseFuncs } from "../../../utils/types"
+import { connect } from "../../../../utils/connection"
+import { ResponseFuncs } from "../../../../utils/types"
 
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -8,7 +8,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const method: keyof ResponseFuncs = req.method as keyof ResponseFuncs
 
   // Catch error function
-  const catcher = (error: Error) => res.status(400).json({ error })
 
   const id: String = req.query.receiverId as string
 
@@ -17,7 +16,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // PUT request (withdraws money)
     PUT: async (req: NextApiRequest, res: NextApiResponse) => {
       const { User } = await connect()
-      // res.json(await User.create(req.body).catch(catcher))
+      const deposit: number = req.body.deposit
+      try {
+        const foundUser: object | null = await User.findById(id)
+        if(foundUser) {
+          const updatedUser = await User.findByIdAndUpdate(id, {'$inc': {'cash': deposit}}, { new: true })
+          res.status(201).json({ success: true, data: updatedUser })
+        } else {
+          res.status(400).json({ success: false, error: "Error finding user with that id"})
+        }
+      } catch (error) {
+        res.status(400).json({ success: false, error: "Error withdrawing from account"})
+      }
     }
   }
   const response = handleCase[method]
