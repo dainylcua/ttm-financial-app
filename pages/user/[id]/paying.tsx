@@ -5,6 +5,8 @@ import Container from "../../../components/Container"
 import BackButton from "../../../components/BackButton"
 import FinalNumpad from "../../../components/FinalNumpad"
 import { useUserContext } from "../../../context/UserContext"
+import FinalButton from "../../../components/FinalButton"
+import { useAmountContext } from "../../../context/AmountContext"
 
 
 export const getServerSidePaths = async () => {
@@ -61,6 +63,7 @@ interface Transaction {
 
 const Paying: NextPage<PageProps> = ({ user, id }) => {
   const userContext = useUserContext()
+  const { amount } = useAmountContext()
   const loggedUser = userContext.user
   const [transferState, setTransferState] = useState<boolean>(false)
 
@@ -72,7 +75,7 @@ const Paying: NextPage<PageProps> = ({ user, id }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <div className="relative flex flex-col text-center transition-opacity ease-in-out">
+        <div className={`relative flex flex-col text-center ease-in-out`}>
           <BackButton />
           <div className="flex flex-col items-center justify-center mb-8">
             <div className="flex flex-col justify-center w-12 h-12 my-2 text-center border rounded-full">{user.username.slice(0,1).toUpperCase()}</div>
@@ -83,13 +86,29 @@ const Paying: NextPage<PageProps> = ({ user, id }) => {
               @{user.username}
             </div>
           </div>
-          <div className={`flex flex-col transition-opacity ease-in-out ${transferState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
-            <FinalNumpad />
-          </div>
         </div>
-
-        <div>
-
+        <div className={`flex flex-col justify-center items-center ${transferState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
+          <FinalNumpad />
+          <FinalButton setTransferState={setTransferState}>
+            Pay Money
+          </FinalButton>
+        </div>
+        <div className={`flex flex-col justify-center items-center ${transferState ? 'visible opacity-100 h-100' : 'invisible opacity-0 h-0' }`}>
+          <div className="flex flex-row items-center justify-center pt-24">
+            <div className="flex flex-row items-center justify-center w-40 text-7xl">
+            <span className="self-start text-2xl">$</span>
+              {amount}
+            </div>
+          </div>
+          <div>
+            Are you sure?
+          </div>
+          <FinalButton setTransferState={setTransferState}>
+            Pay Money
+          </FinalButton>
+          <FinalButton setTransferState={setTransferState}>
+            Cancel
+          </FinalButton>
         </div>
       </Container>
     </>

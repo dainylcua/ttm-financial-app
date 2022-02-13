@@ -24,7 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           res.status(400).json({ success: false, error: "Error finding user with that id"})
         }
       } catch (e) {
-        res.status(400).json({ success: false, error: "Error withdrawing from account"+e})
+        res.status(400).json({ success: false, error: "Error depositing to account"+e})
       }
     }
   }
