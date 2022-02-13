@@ -33,8 +33,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(400).json({ success: false, error: "No user with that phone number found"})
           }
         }
-      } catch (error) {
-        res.status(400).json({ success: false, error: "No user with that information found" })
+      } catch (e) {
+        res.status(400).json({ success: false, error: "No user with that information found"+e })
       }
     }
   }

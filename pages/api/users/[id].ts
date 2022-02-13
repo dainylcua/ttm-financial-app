@@ -21,8 +21,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         } else {
           res.status(400).json({ success: false, error: "No user found with that id"})
         }
-      } catch (error) {
-        res.status(400).json({ success: false, error: "Error getting user"})
+      } catch (e) {
+        res.status(400).json({ success: false, error: "Error getting user"+e})
       }
     },
 
@@ -36,8 +36,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         } else {
           res.status(400).json({ success: false, error: "No user found with that id"})
         }
-      } catch (error) {
-        res.status(400).json({ success: false, error: "Error deleting user"})
+      } catch (e) {
+        res.status(400).json({ success: false, error: "Error deleting user"+e})
       }
     }
   }

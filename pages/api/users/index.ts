@@ -18,8 +18,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const users = await User.find({})
         res.status(201).json({ success: true, data: users })
-      } catch (error) {
-        res.status(400).json({ success: false, error: "Error finding users" })
+      } catch (e) {
+        res.status(400).json({ success: false, error: "Error finding users"+e })
       }
     },
     

@@ -26,8 +26,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         } else {
           res.status(400).json({ success: false, error: "Invalid login combination"})
         }
-      } catch (error) {
-        res.status(400).json({ success: false, error: "Error getting users" })
+      } catch (e) {
+        res.status(400).json({ success: false, error: "Error getting users"+e })
       }
     }
   }
