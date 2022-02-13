@@ -25,8 +25,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           if(!sender || !receiver) {
             res.status(400).json({ success: false, error: "Unable to find one or both users"})
           } else {
-            const updatedSender = await User.findByIdAndUpdate(receiverId, {'$inc': {'cash': cashflow}}, { new: true })
-            const updatedReceiver = await User.findByIdAndUpdate(senderId, {'$inc': {'cash': -cashflow}}, { new: true })
+            const transactionObject = {
+              senderId: senderId,
+              senderUsername: sender.username,
+              senderFirstName: sender.firstName,
+              receiverId: receiverId,
+              receiverUsername: receiver.username,
+              receiverFirstName: receiver.firstName,
+              cashflow: cashflow
+            }
+            const updatedSender = await User.findByIdAndUpdate(receiverId, {'$inc': {'cash': cashflow}, "$push" : { "history": transactionObject}}, { new: true })
+            const updatedReceiver = await User.findByIdAndUpdate(senderId, {'$inc': {'cash': -cashflow}, "$push" : { "history": transactionObject}}, { new: true })
             res.status(201).json({ success: true, data: { updatedSender, updatedReceiver }})
           }
         }

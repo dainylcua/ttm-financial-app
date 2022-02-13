@@ -121,7 +121,7 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
         </div>
         
         <div className={`flex flex-col transition-opacity ease-in-out ${searchState ? 'visible opacity-100 h-100' : 'invisible opacity-0 h-0'}`}>
-          <div className="py-8 text-2xl font-bold">
+          <div className="pt-8 pb-4 text-2xl font-bold">
             {
               users.length ?
               'Results'
@@ -131,7 +131,7 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
           </div>
           {
             users.map((u) => (
-              <div className="flex flex-row items-start justify-start w-full" key={u._id}>
+              <div className="flex flex-row items-start justify-start w-full py-4" key={u._id}>
                 <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
                 <div className="flex flex-col text-sm">
                   <div className="text-lg font-medium">

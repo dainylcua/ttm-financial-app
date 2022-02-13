@@ -138,7 +138,7 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
               ))
             :
               users.map((u) => (
-                <div className="flex flex-row items-start justify-start w-full" key={u._id}>
+                <div className="flex flex-row items-start justify-start w-full py-4" key={u._id}>
                   <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
                   <div className="flex flex-col text-sm">
                     <div className="text-lg font-medium">
