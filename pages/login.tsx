@@ -3,13 +3,15 @@ import Head from "next/head"
 import SplashContainer from "../components/SplashContainer"
 import SplashButton from "../components/SplashButton"
 import { SyntheticEvent, useState, ChangeEvent } from "react"
+import { useUserContext } from "../context/UserContext"
 
 interface FormStateInterface {
     phoneNumber: string
     username: string
 }
 
-const SignUp: NextPage = () => {
+const Login: NextPage = () => {
+  const { login } = useUserContext()
   const [formState, setFormState] = useState<FormStateInterface>({
     phoneNumber: "",
     username: "",
@@ -17,6 +19,7 @@ const SignUp: NextPage = () => {
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
+    login(formState.username, formState.phoneNumber)
   }
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -81,4 +84,4 @@ const SignUp: NextPage = () => {
   )
 }
 
-export default SignUp
+export default Login

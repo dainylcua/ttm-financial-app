@@ -3,7 +3,7 @@ import Head from "next/head"
 import SplashContainer from "../components/SplashContainer"
 import SplashButton from "../components/SplashButton"
 import { SyntheticEvent, useState, ChangeEvent } from "react"
-import { useRouter } from "next/router"
+import { useUserContext } from "../context/UserContext"
 
 interface FormState {
     firstName: string
@@ -15,6 +15,7 @@ interface FormState {
 }
 
 const SignUp: NextPage = () => {
+  const { signup } = useUserContext()
   const [formState, setFormState] = useState<FormState>({
     firstName: "",
     lastName: "",
@@ -24,11 +25,9 @@ const SignUp: NextPage = () => {
     history: [{}]
   })
 
-  const router = useRouter()
-
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
-    router.push("/login")
+    signup(formState)
   }
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
