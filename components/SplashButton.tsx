@@ -1,11 +1,12 @@
 import Link from "next/link"
 
 interface Props {
-  children?: React.ReactNode,
+  children?: React.ReactNode
   href?: string | null
+  active?: boolean
 }
 
-const SplashButton: React.FC<Props> = ({children, href}) => {
+const SplashButton: React.FC<Props> = ({children, href, active}) => {
   return (
     <Link passHref href={`${href ? `${href}` : "/"}`}>
       <a 

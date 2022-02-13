@@ -16,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const { User } = await connect()
 
       try {
-        const users = User.find()
+        const users = await User.find({})
         res.status(201).json({ success: true, data: users })
       } catch (error) {
         res.status(400).json({ success: false, error: "Error finding users" })
@@ -31,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const createdUser: object | null = await User.create(req.body)
         res.status(201).json({ success: true, data: createdUser })
       } catch (error) {
-        res.status(400).json({ success: false, error: "Error creating user" })
+        res.status(400).json({ success: false, error: "Error creating user, potentially due to username or phone number in database" })
       }
     },
     

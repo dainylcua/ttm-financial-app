@@ -1,23 +1,23 @@
-import mongoose, { Model } from "mongoose"
+import mongoose from "mongoose"
 
 const { DATABASE_URL } = process.env
 
 interface User {
-  firstName: String
-  lastName?: String
-  username: String,
-  phoneNumber: String,
-  cash: Number,
+  firstName: string
+  lastName?: string
+  username: string
+  phoneNumber: string
+  cash: number
   history: [{
     senderId: mongoose.Types.ObjectId,
-    senderUsername: String,
-    senderFirstName: String,
-    senderLastName: String,
+    senderUsername: string,
+    senderFirstName: string,
+    senderLastName: string,
     receiverId: mongoose.Types.ObjectId,
-    receiverUsername: String,
-    receiverFirstName: String,
-    receiverLastName: String,
-    cashflow: Number
+    receiverUsername: string,
+    receiverFirstName: string,
+    receiverLastName: string,
+    cashflow: number
   }]
 }
 
