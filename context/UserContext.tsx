@@ -74,7 +74,7 @@ export const UserProvider: React.FC = ({ children }) => {
           cash: user.cash,
           history: user.history
         })
-        router.push("/")
+        router.push("/transfer")
         return
       } else {
         logout()
