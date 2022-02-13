@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from "react"
 import type { NextPage } from "next"
 import Head from "next/head"
 import Container from "../components/Container"
-import Button from "../components/Button"
+import DepositButton from "../components/DepositButton"
 import DashboardButton from "../components/DashboardButton"
 import { useUserContext } from "../context/UserContext"
+import { useRouter } from "next/router"
 
 interface User {
   _id?: string
@@ -30,6 +31,47 @@ interface Transaction {
 
 const Transfer: NextPage = () => {
   const { user } = useUserContext()
+  const router = useRouter()
+
+  const deposit = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_TRANSACTION_URL}/${user._id}/deposit` as string, {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/JSON"
+        },
+        body: JSON.stringify({"deposit": 500})
+      })
+      const data = await res.json()
+      if(data.success) {
+        router.reload()
+      } else {
+        throw new Error("Error depositing money")
+      }
+    } catch (error) {
+      console.log("Error depositing money", error)
+    }
+  }
+
+  const withdraw = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_TRANSACTION_URL}/${user._id}/deposit` as string, {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/JSON"
+        },
+        body: JSON.stringify({"withdraw": 500})
+      })
+      const data = await res.json()
+      if(data.success) {
+        router.reload()
+      } else {
+        throw new Error("Error depositing money")
+      }
+    } catch (error) {
+      console.log("Error depositing money", error)
+    }
+  }
 
   return (
     <>
@@ -47,12 +89,12 @@ const Transfer: NextPage = () => {
             </div>
           </div>
           <div className="flex flex-row self-center pt-16 pb-8 gap-x-8">
-            <DashboardButton href="/transfer">
-              Withdraw $500
-            </DashboardButton>
-            <DashboardButton href="/signup">
+            <DepositButton onClick={withdraw}>
+              Withdraw $500 
+            </DepositButton>
+            <DepositButton onClick={deposit} >
               Deposit $500
-            </DashboardButton>
+            </DepositButton>
           </div>
 
           <div className="text-2xl font-bold">Recent Transactions</div>

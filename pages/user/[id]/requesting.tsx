@@ -1,8 +1,10 @@
+import { useState } from "react"
 import type { NextPage, GetServerSideProps } from "next"
 import Head from "next/head"
 import Container from "../../../components/Container"
 import BackButton from "../../../components/BackButton"
-import TransferButton from "../../../components/TransferButton"
+import FinalNumpad from "../../../components/FinalNumpad"
+import { useUserContext } from "../../../context/UserContext"
 
 
 export const getServerSidePaths = async () => {
@@ -58,6 +60,10 @@ interface Transaction {
 }
 
 const Requesting: NextPage<PageProps> = ({ user, id }) => {
+  const userContext = useUserContext()
+  const loggedUser = userContext.user
+  const [transferState, setTransferState] = useState<boolean>(false)
+
   return (
     <>
       <Head>
@@ -68,20 +74,26 @@ const Requesting: NextPage<PageProps> = ({ user, id }) => {
       <Container>
         <div className="relative flex flex-col text-center transition-opacity ease-in-out">
           <BackButton />
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex flex-col justify-center w-16 h-16 my-8 text-center border rounded-full">{user.username.slice(0,1).toUpperCase()}</div>
-            <div className="text-xl">
+          <div className="flex flex-col items-center justify-center mb-8">
+            <div className="flex flex-col justify-center w-12 h-12 my-2 text-center border rounded-full">{user.username.slice(0,1).toUpperCase()}</div>
+            <div className="text-lg">
               {user.firstName} {user.lastName? user.lastName : null}
             </div>
-            <div className="text-3xl font-bold">
+            <div className="text-2xl font-bold">
               @{user.username}
             </div>
           </div>
+          <div className={`flex flex-col transition-opacity ease-in-out ${transferState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
+            <FinalNumpad />
+          </div>
+        </div>
+
+        <div>
+
         </div>
       </Container>
     </>
   )
 }
-
 
 export default Requesting

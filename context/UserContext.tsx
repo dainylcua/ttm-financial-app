@@ -26,7 +26,7 @@ interface Transaction {
   receiverUsername?: string,
   receiverFirstName?: string,
   receiverLastName?: string,
-  cashflow?: Number
+  cashflow?: number
 }
 
 const defaults = {
