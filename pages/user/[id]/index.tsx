@@ -2,6 +2,7 @@ import type { NextPage, GetServerSideProps } from "next"
 import Head from "next/head"
 import Container from "../../../components/Container"
 import BackButton from "../../../components/BackButton"
+import PenultimateButton from "../../../components/PenultimateButton"
 
 
 export const getServerSidePaths = async () => {
@@ -56,7 +57,6 @@ interface Transaction {
 
 const Transfer: NextPage<PageProps> = ({ user }) => {
   const recentTransactions: Array<Transaction> = user.history.slice(0,3)
-  console.log(recentTransactions)
   return (
     <>
       <Head>
@@ -76,8 +76,19 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
               @{user.username}
             </div>
           </div>
-          <div className="flex flex-row py-8">
-            Buttons go here
+          <div className="flex flex-row self-center py-8 gap-x-4">
+            <PenultimateButton
+              href={`/${user._id}`}
+              paying={true}
+            >
+              Pay
+            </PenultimateButton>
+            <PenultimateButton
+              href={`/${user._id}`}
+              paying={false}
+            >
+              Request
+            </PenultimateButton>
           </div>
           <div className="flex flex-col">
             <div className="text-2xl font-bold">
