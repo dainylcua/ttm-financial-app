@@ -14,7 +14,11 @@ interface User {
 interface UserContextInterface {
   user: User
   login: Function
-  signup: Function
+  signup: Function,
+  deposit: Function,
+  withdraw: Function,
+  paying: Function,
+  requesting: Function
 }
 
 interface Transaction {
@@ -40,7 +44,11 @@ const defaults = {
     history: []
   },
   login: (() => {}), 
-  signup: (() => {})
+  signup: (() => {}),
+  deposit: (() => {}),
+  withdraw: (() => {}),
+  paying: (() => {}),
+  requesting: (() => {})
 }
 
 const UserContext = createContext<UserContextInterface>(defaults)
@@ -107,8 +115,56 @@ export const UserProvider: React.FC = ({ children }) => {
     }
   }
 
+  const deposit = async (user: User) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_TRANSACTION_URL}/${user._id}/deposit` as string, {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/JSON"
+        },
+        body: JSON.stringify({"deposit": 500})
+      })
+      const data = await res.json()
+      if(data.success) {
+        router.reload()
+      } else {
+        throw new Error("Error depositing money")
+      }
+    } catch (error) {
+      console.log("Error depositing money", error)
+    }
+  }
+
+  const withdraw = async (user: User) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_TRANSACTION_URL}/${user._id}/deposit` as string, {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/JSON"
+        },
+        body: JSON.stringify({"withdraw": 500})
+      })
+      const data = await res.json()
+      if(data.success) {
+        router.reload()
+      } else {
+        throw new Error("Error depositing money")
+      }
+    } catch (error) {
+      console.log("Error depositing money", error)
+    }
+  }
+
+  const paying = async (sender: User, receiver: string) => {
+
+  }
+
+  const requesting = async (sender: User, receiver: string) => {
+
+  }
+
   return(
-    <UserContext.Provider value={{user, login, signup}}>{ children }</UserContext.Provider>
+    <UserContext.Provider value={{user, login, signup, deposit, withdraw, paying, requesting}}>{ children }</UserContext.Provider>
   )
 }
 

@@ -30,49 +30,8 @@ interface Transaction {
 }
 
 const Transfer: NextPage = () => {
-  const { user } = useUserContext()
+  const { user, deposit, withdraw } = useUserContext()
   const router = useRouter()
-
-  const deposit = async () => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_TRANSACTION_URL}/${user._id}/deposit` as string, {
-        method: "POST",
-        headers: {
-          "Content-Type": "Application/JSON"
-        },
-        body: JSON.stringify({"deposit": 500})
-      })
-      const data = await res.json()
-      if(data.success) {
-        router.reload()
-      } else {
-        throw new Error("Error depositing money")
-      }
-    } catch (error) {
-      console.log("Error depositing money", error)
-    }
-  }
-
-  const withdraw = async () => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_TRANSACTION_URL}/${user._id}/deposit` as string, {
-        method: "POST",
-        headers: {
-          "Content-Type": "Application/JSON"
-        },
-        body: JSON.stringify({"withdraw": 500})
-      })
-      const data = await res.json()
-      if(data.success) {
-        router.reload()
-      } else {
-        throw new Error("Error depositing money")
-      }
-    } catch (error) {
-      console.log("Error depositing money", error)
-    }
-  }
-
   return (
     <>
       <Head>
