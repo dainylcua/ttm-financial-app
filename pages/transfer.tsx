@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, JSXElementConstructor } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import type { NextPage } from "next"
 import Head from "next/head"
 import Container from "../components/Container"
@@ -6,6 +6,7 @@ import Button from "../components/Button"
 import SearchBar from "../components/SearchBar"
 import { debounce } from "lodash"
 import BigNumber from "../components/BigNumber"
+import BackButton from "../components/BackButton"
 
 
 // export async function getServerSideProps() {
@@ -85,8 +86,8 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
       </Head>
       <Container>
         <SearchBar setSearchState={setSearchState} handleChange={handleChange}/>
-        <div className={`flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
-        <BigNumber />
+        <div className={`relative flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
+          <BigNumber />
           <div className="flex flex-row self-center pb-10 gap-x-8">
             <Button href="/transfer">
               Pay

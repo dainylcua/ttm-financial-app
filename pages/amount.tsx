@@ -91,7 +91,8 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
         </div>
 
 
-        <div className={`flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
+        <div className={`relative flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
+          <BackButton />
           <NumpadNumber />
           <div className="flex flex-row self-center mt-10 gap-x-8">
             <NumpadButton
