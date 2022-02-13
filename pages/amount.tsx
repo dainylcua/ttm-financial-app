@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, JSXElementConstructor } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import type { NextPage } from "next"
 import Head from "next/head"
 import Container from "../components/Container"
@@ -6,6 +6,7 @@ import NumpadButton from "../components/TransferButton"
 import SearchBar from "../components/SearchBar"
 import { debounce } from "lodash"
 import NumpadNumber from "../components/NumpadNumber"
+import BackButton from "../components/BackButton"
 
 
 // export async function getServerSideProps() {
@@ -46,7 +47,6 @@ interface Transaction {
 
 const Transfer: NextPage<PageProps> = ({ user }) => {
   const [searchState, setSearchState] = useState<boolean>(false)
-  const [buttonState, setButtonState] = useState<boolean>(false)
   const [transferState, setTransferState] = useState<boolean>(false)
   const [users, setUsers] = useState<Array<User>>([])
 
@@ -86,23 +86,23 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <div className={`${buttonState ? 'visible opacity-100' : 'invisible opacity-0'}`}>
+        <div id="searchContainer" className={`${searchState ? 'visible opacity-100' : 'invisible opacity-0'} flex flex-row w-full`}>
           <SearchBar setSearchState={setSearchState} handleChange={handleChange}/>
         </div>
 
-        <NumpadNumber />
 
         <div className={`flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
+          <NumpadNumber />
           <div className="flex flex-row self-center mt-10 gap-x-8">
             <NumpadButton
-              setButtonState={setButtonState}
+              setSearchState={setSearchState}
               setTransferState={setTransferState}
               paying={true}
               >
               Pay
             </NumpadButton>
             <NumpadButton 
-              setButtonState={setButtonState}
+              setSearchState={setSearchState}
               setTransferState={setTransferState}
               paying={false}
             >
@@ -112,21 +112,43 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
         </div>
         
         <div className={`flex flex-col transition-opacity ease-in-out ${searchState ? 'visible opacity-100 h-100' : 'invisible opacity-0 h-0'}`}>
-          <div className="py-8 text-2xl font-bold">Results</div>
+          <div className="py-8 text-2xl font-bold">
+              {
+                users.length ?
+                'Results'
+                :
+                'Search by typing in a username or phone number.'
+              }
+            </div>
           {
-            users.map((u) => (
-              <div className="flex flex-row items-start justify-start w-full" key={u._id}>
-                <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
-                <div className="flex flex-col text-sm">
-                  <div className="text-lg font-medium">
-                  @{u.username}
-                  </div>
-                  <div>
-                  {u.firstName} {u.lastName || null}
+            transferState ? 
+              users.map((u) => (
+                <div className="flex flex-row items-start justify-start w-full" key={u._id}>
+                  <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
+                  <div className="flex flex-col text-sm">
+                    <div className="text-lg font-medium">
+                    @{u.username}
+                    </div>
+                    <div>
+                    {u.firstName} {u.lastName || null}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
+              ))
+            :
+              users.map((u) => (
+                <div className="flex flex-row items-start justify-start w-full" key={u._id}>
+                  <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
+                  <div className="flex flex-col text-sm">
+                    <div className="text-lg font-medium">
+                    @{u.username}
+                    </div>
+                    <div>
+                    {u.firstName} {u.lastName || null}
+                    </div>
+                  </div>
+                </div>
+              ))
           }
         </div>
       </Container>
