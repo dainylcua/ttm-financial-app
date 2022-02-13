@@ -6,6 +6,7 @@ import Button from "../components/Button"
 import SearchBar from "../components/SearchBar"
 import { debounce } from "lodash"
 import BigNumber from "../components/BigNumber"
+import Link from "next/link"
 
 
 // export async function getServerSideProps() {
@@ -130,17 +131,19 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
           </div>
           {
             users.map((u) => (
-              <div className="flex flex-row items-start justify-start w-full py-4" key={u._id}>
-                <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
-                <div className="flex flex-col text-sm">
-                  <div className="text-lg font-medium">
-                  @{u.username}
-                  </div>
-                  <div>
-                  {u.firstName} {u.lastName || null}
-                  </div>
-                </div>
-              </div>
+                <Link passHref href={`user/${u._id}`} key={u._id}>
+                  <a className="flex flex-row items-start justify-start w-full py-4" >
+                    <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
+                    <div className="flex flex-col text-sm">
+                      <div className="text-lg font-medium">
+                      @{u.username}
+                      </div>
+                      <div>
+                      {u.firstName} {u.lastName || null}
+                      </div>
+                    </div>
+                  </a>
+                </Link>
             ))
           }
         </div>

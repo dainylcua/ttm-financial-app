@@ -78,13 +78,13 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
           </div>
           <div className="flex flex-row self-center py-8 gap-x-4">
             <PenultimateButton
-              href={`/${user._id}`}
+              href={`/user/${user._id}`}
               paying={true}
             >
               Pay
             </PenultimateButton>
             <PenultimateButton
-              href={`/${user._id}`}
+              href={`/user/${user._id}`}
               paying={false}
             >
               Request
