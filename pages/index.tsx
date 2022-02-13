@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import Head from "next/head"
-import Container from "../components/Container"
-import Button from "../components/Button"
+import SplashContainer from "../components/SplashContainer"
+import SplashButton from "../components/SplashButton"
 
 const Home: NextPage = () => {
   return (
@@ -11,19 +11,21 @@ const Home: NextPage = () => {
         <meta name="description" content="Welcome to our app!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container>
-        <div className="text-3xl font-bold">
-          Welcome, TTM!
+      <SplashContainer>
+        <div className="flex flex-col gap-y-[28rem]">
+          <div className="text-3xl font-bold">
+            Welcome, TTM!
+          </div>
+          <div className="flex flex-row self-center w-[350px]">
+            <SplashButton href="/login">
+              Log In
+            </SplashButton>
+            <SplashButton href="/signup">
+              Sign Up
+            </SplashButton>
+          </div>
         </div>
-        <div className="flex flex-row self-center py-80 gap-x-8">
-          <Button href="/transfer">
-            Log In
-          </Button>
-          <Button href="/signup">
-            Sign Up
-          </Button>
-        </div>
-      </Container>
+      </SplashContainer>
     </>
   )
 }
