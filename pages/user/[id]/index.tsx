@@ -20,7 +20,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const foundUser: ResponseUser = await res.json()
   return {
     props: { 
-      user: foundUser.data 
+      user: foundUser.data,
+      id: foundUser.data._id
     },
   }
 }
@@ -41,6 +42,7 @@ interface User {
 }
 interface PageProps {
   user: User
+  id: string
 }
 
 interface Transaction {
@@ -55,7 +57,7 @@ interface Transaction {
   cashflow?: number
 }
 
-const Transfer: NextPage<PageProps> = ({ user }) => {
+const Transfer: NextPage<PageProps> = ({ user, id }) => {
   const recentTransactions: Array<Transaction> = user.history.slice(0,3)
   return (
     <>
@@ -78,13 +80,15 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
           </div>
           <div className="flex flex-row self-center py-8 gap-x-4">
             <PenultimateButton
-              href={`/user/${user._id}`}
+              href={`user`}
+              uid={id}
               paying={true}
             >
               Pay
             </PenultimateButton>
             <PenultimateButton
-              href={`/user/${user._id}`}
+              href={`user`}
+              uid={id}
               paying={false}
             >
               Request
