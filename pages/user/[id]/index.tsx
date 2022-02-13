@@ -3,6 +3,7 @@ import Head from "next/head"
 import Container from "../../../components/Container"
 import BackButton from "../../../components/BackButton"
 import PenultimateButton from "../../../components/PenultimateButton"
+import { useUserContext } from "../../../context/UserContext"
 
 
 export const getServerSidePaths = async () => {
@@ -58,7 +59,13 @@ interface Transaction {
 }
 
 const Transfer: NextPage<PageProps> = ({ user, id }) => {
-  const recentTransactions: Array<Transaction> = user.history.slice(0,3)
+  const userContext = useUserContext()
+  const loggedUser = userContext.user
+  const recentTransactions: Array<Transaction> = user.history.filter((t) => {
+    if(t.receiverUsername == loggedUser.username || t.receiverUsername == loggedUser.username) {
+      return t
+    }
+  }).slice(0,3)
   return (
     <>
       <Head>
@@ -99,9 +106,9 @@ const Transfer: NextPage<PageProps> = ({ user, id }) => {
               Recent Transactions
             </div>
               {
-                recentTransactions ?
+                recentTransactions.length ?
                   recentTransactions.map((t, idx) => (
-                    <div className="flex flex-row items-start justify-start w-full py-4 text-center" key={idx}>
+                    <div className="flex flex-row items-start justify-start w-full py-4 overflow-scroll text-center" key={idx}>
                       <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{user.username.slice(0,1).toUpperCase()}</div>
                       <div className="flex flex-col text-sm">
                         <div className="text-lg font-medium">
@@ -118,7 +125,7 @@ const Transfer: NextPage<PageProps> = ({ user, id }) => {
                   ))
               :
                 <div>
-                  No recent transactions.
+                  No transactions with user.
                 </div>
               }
           </div>

@@ -7,18 +7,8 @@ import SearchBar from "../components/SearchBar"
 import { debounce } from "lodash"
 import BigNumber from "../components/BigNumber"
 import Link from "next/link"
-
-
-// export async function getServerSideProps() {
-//   const res = await fetch(process.env.USER_URL as string)
-//   const users = await res.json()
-//   const user = users.data[0]
-//   console.log(user)
-
-//   return {
-//     props: { user },
-//   }
-// }
+import { useUserContext } from "../context/UserContext"
+import DashboardButton from"../components/DashboardButton"
 
 interface User {
   _id?: string
@@ -28,9 +18,6 @@ interface User {
   phoneNumber: string
   cash: number
   history: Array<Transaction>
-}
-interface PageProps {
-  user: User
 }
 
 interface Transaction {
@@ -45,10 +32,10 @@ interface Transaction {
   cashflow?: Number
 }
 
-const Transfer: NextPage<PageProps> = ({ user }) => {
+const Transfer: NextPage = () => {
   const [searchState, setSearchState] = useState<boolean>(false)
   const [users, setUsers] = useState<Array<User>>([])
-
+  const { user } = useUserContext()
   
   const searchUsers: Function = async (query: string) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_USER_URL}/search/${query}` as string, {
@@ -98,19 +85,25 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
           </div>
 
           <div className="text-2xl font-bold">Recent Transactions</div>
-          <div>
+          <div className="h-32">
             {
               user ?
                 user.history.length ?
                   user.history.map((t: Transaction, idx) => (
-                    <div key={idx} className="flex w-full">
-                      <div>Image</div>
-                      <div className="flex flex-col">
-                        <div>{t.senderFirstName}</div>
-                        <div>{t.senderLastName}</div>
+                    <div className="flex flex-row items-start justify-start w-full my-4 overflow-scroll text-center" key={idx}>
+                    <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{user.username.slice(0,1).toUpperCase()}</div>
+                    <div className="flex flex-col text-sm">
+                      <div className="text-lg font-medium">
+                        @{user.username}
                       </div>
-                      <div>{t.cashflow}</div>
+                      <div>
+                        {user.firstName} {user.lastName || null}
+                      </div>
                     </div>
+                    <div className="flex flex-col items-center justify-center ml-8 text-xl text-center">
+                      {user._id = t.senderId ? '-' : ' '}{t.cashflow}
+                    </div>
+                </div>
                   ))
                 :
                   'No user history found.'
@@ -118,7 +111,13 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
                 'Please log in to view.'
             }
           </div>
+          <div className="flex flex-col items-center justify-center">
+            <DashboardButton href="/dashboard">
+              Dashboard
+            </DashboardButton>
+          </div>
         </div>
+
         
         <div className={`flex flex-col transition-opacity ease-in-out ${searchState ? 'visible opacity-100 h-100' : 'invisible opacity-0 h-0'}`}>
           <div className="pt-8 pb-4 text-2xl font-bold">
@@ -132,7 +131,7 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
           {
             users.map((u) => (
                 <Link passHref href={`user/${u._id}`} key={u._id}>
-                  <a className="flex flex-row items-start justify-start w-full my-4" >
+                  <a className="flex flex-row items-start justify-start w-full my-4 overflow-scroll" >
                     <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
                     <div className="flex flex-col text-sm">
                       <div className="text-lg font-medium">

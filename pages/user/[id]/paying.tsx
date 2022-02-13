@@ -4,6 +4,7 @@ import Head from "next/head"
 import Container from "../../../components/Container"
 import BackButton from "../../../components/BackButton"
 import FinalNumpad from "../../../components/FinalNumpad"
+import { useUserContext } from "../../../context/UserContext"
 
 
 export const getServerSidePaths = async () => {
@@ -59,6 +60,8 @@ interface Transaction {
 }
 
 const Paying: NextPage<PageProps> = ({ user, id }) => {
+  const userContext = useUserContext()
+  const loggedUser = userContext.user
   const [transferState, setTransferState] = useState<boolean>(false)
 
   return (

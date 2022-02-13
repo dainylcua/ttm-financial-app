@@ -114,7 +114,7 @@ const Transfer: NextPage = () => {
             transferState ? 
               users.map((u) => (
                 <Link passHref href={`user/${u._id}/paying`} key={u._id}>
-                  <a className="flex flex-row items-start justify-start w-full my-4" key={u._id}>
+                  <a className="flex flex-row items-start justify-start w-full my-4 overflow-scroll" key={u._id}>
                     <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
                     <div className="flex flex-col text-sm">
                       <div className="text-lg font-medium">
@@ -130,7 +130,7 @@ const Transfer: NextPage = () => {
             :
               users.map((u) => (
                 <Link passHref href={`user/${u._id}/requesting`} key={u._id}>
-                  <a className="flex flex-row items-start justify-start w-full my-4" key={u._id}>
+                  <a className="flex flex-row items-start justify-start w-full my-4 overflow-scroll" key={u._id}>
                     <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
                     <div className="flex flex-col text-sm">
                       <div className="text-lg font-medium">
