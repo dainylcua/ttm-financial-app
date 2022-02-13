@@ -89,10 +89,10 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
         <div className={`relative flex flex-col text-center transition-opacity ease-in-out ${searchState ? 'invisible opacity-0 h-0' : 'visible opacity-100 h-100'}`}>
           <BigNumber />
           <div className="flex flex-row self-center pb-10 gap-x-8">
-            <Button href="/transfer">
+            <Button href="/amount">
               Pay
             </Button>
-            <Button href="/signup">
+            <Button href="/amount">
               Request
             </Button>
           </div>
@@ -132,7 +132,7 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
           {
             users.map((u) => (
                 <Link passHref href={`user/${u._id}`} key={u._id}>
-                  <a className="flex flex-row items-start justify-start w-full py-4" >
+                  <a className="flex flex-row items-start justify-start w-full my-4" >
                     <div className="flex flex-col justify-center w-12 h-12 ml-2 mr-8 text-center border rounded-full">{u.username.slice(0,1).toUpperCase()}</div>
                     <div className="flex flex-col text-sm">
                       <div className="text-lg font-medium">
