@@ -11,6 +11,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Response possibilities
   const handleCase: ResponseFuncs = {
+    // GET request (gets all userse)
+    GET: async (req: NextApiRequest, res: NextApiResponse) => {
+      const { User } = await connect()
+
+      try {
+        const users = User.find()
+        res.status(201).json({ success: true, data: users })
+      } catch (error) {
+        res.status(400).json({ success: false, error: "Error finding users" })
+      }
+    },
+    
     // POST request (create user)
     POST: async (req: NextApiRequest, res: NextApiResponse) => {
       const { User } = await connect()

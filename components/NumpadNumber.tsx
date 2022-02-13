@@ -35,28 +35,28 @@ const NumpadNumber: React.FC = () => {
       </div>
       <div className="flex flex-col h-64 text-3xl border rounded-lg justify-evenly gap-y-2">
         <div className="flex flex-row items-center justify-between flex-grow px-8 mb-2 text-xl text-center border-b">
-          <button onClick={() => setAmount(10)}>$10</button>
-          <button onClick={() => setAmount(100)}>$100</button>
-          <button onClick={() => setAmount(500)}>$500</button>
+          <button className="transition-transform active:scale-90" onClick={() => setAmount(10)}>$10</button>
+          <button className="transition-transform active:scale-90" onClick={() => setAmount(100)}>$100</button>
+          <button className="transition-transform active:scale-90" onClick={() => setAmount(500)}>$500</button>
         </div>
         <div className="flex flex-row justify-between flex-grow px-12">
-          <button onClick={addDigit}>7</button>
-          <button onClick={addDigit}>8</button>
-          <button onClick={addDigit}>9</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>7</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>8</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>9</button>
         </div>
         <div className="flex flex-row justify-between flex-grow px-12">
-          <button onClick={addDigit}>4</button>
-          <button onClick={addDigit}>5</button>
-          <button onClick={addDigit}>6</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>4</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>5</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>6</button>
         </div>
         <div className="flex flex-row justify-between flex-grow px-12">
-          <button onClick={addDigit}>1</button>
-          <button onClick={addDigit}>2</button>
-          <button onClick={addDigit}>3</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>1</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>2</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>3</button>
         </div>
         <div className="flex flex-row justify-between flex-grow px-12 mb-2">
-          <button className="font-bold" onClick={deleteDigit}>←</button>
-          <button onClick={addDigit}>0</button>
+          <button className="font-bold transition-transform active:scale-90" onClick={deleteDigit}>←</button>
+          <button className="transition-transform active:scale-90" onClick={addDigit}>0</button>
           <div className="invisible">1</div>
         </div>
       </div>

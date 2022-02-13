@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import type { NextPage } from "next"
 import Head from "next/head"
 import Container from "../components/Container"
-import NumpadButton from "../components/TransferButton"
+import TransferButton from "../components/TransferButton"
 import SearchBar from "../components/SearchBar"
 import { debounce } from "lodash"
 import NumpadNumber from "../components/NumpadNumber"
@@ -95,20 +95,20 @@ const Transfer: NextPage<PageProps> = ({ user }) => {
           <BackButton />
           <NumpadNumber />
           <div className="flex flex-row self-center mt-10 gap-x-8">
-            <NumpadButton
+            <TransferButton
               setSearchState={setSearchState}
               setTransferState={setTransferState}
               paying={true}
               >
               Pay
-            </NumpadButton>
-            <NumpadButton 
+            </TransferButton>
+            <TransferButton 
               setSearchState={setSearchState}
               setTransferState={setTransferState}
               paying={false}
             >
               Request
-            </NumpadButton>
+            </TransferButton>
           </div>
         </div>
         
