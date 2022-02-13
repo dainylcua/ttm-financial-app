@@ -31,7 +31,6 @@ interface Transaction {
 
 const Transfer: NextPage = () => {
   const { user, deposit, withdraw } = useUserContext()
-  const router = useRouter()
   return (
     <>
       <Head>
