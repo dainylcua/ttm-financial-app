@@ -26,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // POST request (create user)
     POST: async (req: NextApiRequest, res: NextApiResponse) => {
       const { User } = await connect()
-      console.log(req.body)
+
       try {
         const createdUser: object | null = await User.create(req.body)
         res.status(201).json({ success: true, data: createdUser })

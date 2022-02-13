@@ -10,7 +10,10 @@ import { useAmountContext } from "../../../context/AmountContext"
 
 
 export const getServerSidePaths = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_USER_URL as string)
+  const res = await fetch(process.env.NEXT_PUBLIC_USER_URL as string, {
+    method: "GET",
+  })
+  console.log(res)
   const users = await(res.json())
   console.log(users)
   return {

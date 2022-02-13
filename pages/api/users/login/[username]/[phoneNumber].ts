@@ -4,7 +4,6 @@ import { ResponseFuncs } from "../../../../../utils/types"
 
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req.query)
   // Capture request method: typed as key of ResponseFunc
   const method: keyof ResponseFuncs = req.method as keyof ResponseFuncs
 
@@ -21,7 +20,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const foundUsername = await User.findOne({ username: username })
         const foundNumber = await User.findOne({ phoneNumber: phoneNumber })
-        console.log(foundUsername, foundNumber)
         if(foundUsername.username === foundNumber.username) {
           res.status(201).json({ success: true, data: foundUsername })
         } else {

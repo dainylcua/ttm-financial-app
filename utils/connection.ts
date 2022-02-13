@@ -26,7 +26,6 @@ export const connect = async () => {
     .connect(DATABASE_URL as string)
     .catch((err) => console.log(err))
 
-  console.log("Mongoose Connection Established")
   
   const UserSchema: mongoose.Schema = new mongoose.Schema<User>({
     firstName: { type: String, required: true },
