@@ -11,7 +11,7 @@ interface FormState {
     phoneNumber: string
     username: string
     cash: 5000,
-    history: [{}]
+    history: []
 }
 
 const SignUp: NextPage = () => {
@@ -22,7 +22,7 @@ const SignUp: NextPage = () => {
     phoneNumber: "",
     username: "",
     cash: 5000,
-    history: [{}]
+    history: []
   })
 
   const onSubmit = (e: SyntheticEvent) => {
@@ -103,8 +103,8 @@ const SignUp: NextPage = () => {
                 <input
                   className="w-full p-2 rounded-xl"  
                   type="tel" 
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
-                  placeholder="Phone Number (000-000-0000)" 
+                  pattern="[0-9]{3}[0-9]{3}[0-9]{4}" 
+                  placeholder="Phone Number (No dashes)" 
                   name="phoneNumber" 
                   value={formState.phoneNumber}
                   onChange={onChange}

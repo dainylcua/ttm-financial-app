@@ -37,7 +37,7 @@ const defaults = {
     phoneNumber: "",
     username: "",
     cash: 5000,
-    history: [{}]
+    history: []
   },
   login: (() => {}), 
   signup: (() => {})
